@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
+    data class MyName(var name: String = "")
+    private val myName: MyName = MyName("Aleks Haecky")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +36,10 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "LOL", Toast.LENGTH_SHORT).show()
             rollDice()
         }
+
+        binding.content.myName = myName
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -64,7 +70,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.content.diceView.setImageResource(imageResource)
-        binding.content.myView.text = randomInt.toString()
+        myName.name = randomInt.toString()
         binding.content.myView.visibility = View.VISIBLE
+        binding.invalidateAll()
+
     }
 }
