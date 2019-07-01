@@ -1,38 +1,36 @@
 package com.example.diceroller
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageView
+import android.view.View
 import android.widget.Toast
-
+import com.example.diceroller.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var diceImage: ImageView
+
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        diceImage = findViewById(R.id.diceView)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
-        fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
 
-        val rollButton : Button = findViewById(R.id.rollButton)
-//        rollButton.text = "glhf"
-        rollButton.setOnClickListener{
+        binding.content.rollButton.setOnClickListener{
             Toast.makeText(this, "LOL", Toast.LENGTH_SHORT).show()
             rollDice()
         }
@@ -65,6 +63,8 @@ class MainActivity : AppCompatActivity() {
             else -> R.drawable.dice_6
         }
 
-        diceImage.setImageResource(imageResource)
+        binding.content.diceView.setImageResource(imageResource)
+        binding.content.myView.text = randomInt.toString()
+        binding.content.myView.visibility = View.VISIBLE
     }
 }
